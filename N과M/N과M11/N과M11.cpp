@@ -3,7 +3,6 @@
 #include <algorithm>
 using namespace std;
 int n, m;
-bool visited[8] = { 0, };
 vector<int> v;
 vector<int> c;
 void dfs(int cnt) {
@@ -16,13 +15,11 @@ void dfs(int cnt) {
 	}
 	int before = -1;
 	for (int i = 0; i < n; i++) {
-		if (!visited[i] && v[i] != before) {
-			visited[i] = true;
+		if (before != v[i]) {
 			before = v[i];
 			c.push_back(v[i]);
 			dfs(cnt + 1);
 			c.pop_back();
-			visited[i] = false;
 		}
 	}
 }

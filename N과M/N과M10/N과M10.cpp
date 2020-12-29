@@ -3,9 +3,9 @@
 #include <algorithm>
 using namespace std;
 int n, m;
-bool visited[8] = { 0, };
 vector<int> v;
 vector<int> c;
+bool visited[8] = { 0, };
 void dfs(int cnt) {
 	if (cnt == m) {
 		for (auto i : c) {
@@ -16,13 +16,21 @@ void dfs(int cnt) {
 	}
 	int before = -1;
 	for (int i = 0; i < n; i++) {
-		if (!visited[i] && v[i] != before) {
-			visited[i] = true;
+		if (cnt == 0 && before != v[i]) {
 			before = v[i];
+			visited[i] = true;
 			c.push_back(v[i]);
 			dfs(cnt + 1);
-			c.pop_back();
 			visited[i] = false;
+			c.pop_back();
+		}
+		else if (before != v[i] && c[cnt - 1] <= v[i] && !visited[i]) {
+			before = v[i];
+			visited[i] = true;
+			c.push_back(v[i]);
+			dfs(cnt + 1);
+			visited[i] = false;
+			c.pop_back();
 		}
 	}
 }
